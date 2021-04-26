@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed(Runnable {
             if (bool) {
                 bool=false
-                startActivity(Intent(this, SignupActivity::class.java))
+                startActivity(Intent(this, SignInActivity::class.java))
                 finish()
             }
         },3000)

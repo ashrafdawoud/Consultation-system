@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="major">#6c63ff</color>
     <color name="major2">#ffb8b8</color>
+    <color name="major_back">#F8FAFF</color>
+
 </resources>
