@@ -19,21 +19,26 @@ class UserRepository constructor(
     private val retrofitInterface: RetrofitInterface,
     private val userMaper: UserMaper
 ) {
-    suspend fun getBlogs(): kotlinx.coroutines.flow.Flow<DataState<List<UserModel>>> = flow {
+    suspend fun getBlogs(email:String,password:String): kotlinx.coroutines.flow.Flow<DataState<UserModel>> = flow {
         emit(DataState.Loading)
-        try{
-
-            val networkUser = retrofitInterface.loginfunction()//"{\"email\":\"ashraf@gmail.com\",\"password\":\"123456\"}")
-           // val blogs = userMaper.mapFromEntityList(networkUser)
-            //val blogs = userMaper.mapFromEntity(networkUser)
-            //emit(DataState.Success(blogs))
-
-
-            Log.e("userrepo", "sucseess " + networkUser.results)
-        }catch (e: Exception){
+        try {
+            val networkUser =
+                retrofitInterface.loginfunction("{\"email\":\""+email+"\",\"password\":\""+password+"\"}")
+                //retrofitInterface.loginfunction("{\"email\":\"ashraf@gmail.com\",\"password\":\"123456\"}")
+            //val blogs = userMaper.mapFromEntityList(networkUser)
+            val blogs = userMaper.mapFromEntity(networkUser)
+            emit(DataState.Success(blogs))
+            Log.e("userrepo", "sucseess " + networkUser.results.get(0).email)
+        } catch (e: Exception) {
             emit(DataState.Error(e))
-            Log.e("userrepo", "Error " + e)
+            Log.e("userrepo", "Error " + e +"{email:"+email+",password:"+password+"}")
 
         }
+    }
+    suspend fun postuser(map : HashMap<String,String>){
+        val res=retrofitInterface.signupfunction(map)
+        try {
+            Log.e("userrepo", "respond " + res.objectId )
+        }catch (e:java.lang.Exception){}
     }
 }

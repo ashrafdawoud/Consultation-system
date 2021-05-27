@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
     var bool: Boolean = true
     @Inject
     lateinit var activityDesign:ActivityDesign
-    private val viewModel: UserViewModel by viewModels()
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,13 +49,11 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun contentview() {
         activityDesign.excuteDesign(this)
-        viewModel.setStateEvent(MainStateEvent.GetBlogsEvent)
         val progressBar = findViewById<ProgressBar>(R.id.progressbar)
         val doubleBounce: Sprite = Circle()
         doubleBounce.setColor(resources.getColor(R.color.major))
         progressBar.indeterminateDrawable = doubleBounce
         lanch_next_screen()
-        subscribeObservers()
 
     }
 
@@ -72,18 +68,5 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-    private fun subscribeObservers() {
-        viewModel.dataState.observe(this, Observer { dataState ->
-            when (dataState) {
-                is DataState.Success<List<UserModel>> -> {
-                    Log.e("Mainactiivty","sucsses ")
-                }
-                is DataState.Error -> {
-                    Log.e("Mainactiivty","Error ")
-                }
-                is DataState.Loading -> {
-                }
-            }
-        })
-    }
+
 }

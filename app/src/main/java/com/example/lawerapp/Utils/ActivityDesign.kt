@@ -7,7 +7,9 @@ import android.view.WindowManager
 import com.example.lawerapp.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ActivityDesign @Inject constructor() {
 
     fun excuteDesign(activity:Activity){

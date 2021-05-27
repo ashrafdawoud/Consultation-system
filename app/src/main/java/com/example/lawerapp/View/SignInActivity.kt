@@ -1,37 +1,85 @@
 package com.example.lawerapp.View
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.view.WindowManager
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.example.lawerapp.Model.UserModel
 import com.example.lawerapp.R
+import com.example.lawerapp.Utils.ActivityDesign
+import com.example.lawerapp.Utils.DataState
+import com.example.lawerapp.Utils.MainStateEvent
+import com.example.lawerapp.ViewModels.UserViewModel
+import com.example.lawerapp.databinding.ActivitySigninBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
+    lateinit var binding: ActivitySigninBinding
+
+    @Inject
+    lateinit var activityDesign: ActivityDesign
+    private val viewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
-        activityDesign()
+        setContentView(R.layout.activity_signin)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_signin)
+        contentview()
     }
-     fun contentview(){
 
-     }
-    fun activityDesign() {
-        val window = window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            window.statusBarColor = resources.getColor(R.color.white)
-            window.navigationBarColor = resources.getColor(R.color.white)
-        }
+    fun contentview() {
+        activityDesign.excuteDesign(this)
+
     }
+
 
     fun signup(view: View) {
-        startActivity(Intent(this,SignUpActivity::class.java))
+
+        startActivity(Intent(this, SignUpActivity::class.java))
     }
 
     fun signin(view: View) {
-        startActivity(Intent(this,HomeActivity::class.java))
+        if (binding.email.text.toString().equals("")) {
+            binding.email.setError("this field can't be empety")
+        } else if (binding.password.text.toString().equals("")) {
+            binding.password.setError("this field can't be empety")
+        } else {
+            viewModel.setStateEvent(
+                MainStateEvent.GetBlogsEvent,
+                binding.email.text.toString(),
+                binding.password.text.toString()
+            )
+            subscribeObservers()
+
+        }
+
+
+    }
+
+    private fun subscribeObservers() {
+        viewModel.dataState.observe(this, Observer { dataState ->
+            when (dataState) {
+                is DataState.Success<UserModel> -> {
+                    Log.e("Mainactiivty", "sucsses " + dataState.data)
+                    if (binding.email.text.toString().equals(dataState.data.email)&&binding.password.text.toString().equals(dataState.data.password)){
+                        startActivity(Intent(this, HomeActivity::class.java))
+                    }else{
+                        Toast.makeText(this,"try again with correct email or password",Toast.LENGTH_LONG).show()
+                    }
+                }
+                is DataState.Error -> {
+                    Log.e("Mainactiivty", "Error "+dataState.exception.message)
+                    Toast.makeText(this,"Error "+dataState.exception.message,Toast.LENGTH_LONG).show()
+                }
+                is DataState.Loading -> {
+                }
+            }
+        })
     }
 }

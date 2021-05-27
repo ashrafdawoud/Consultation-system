@@ -31,17 +31,16 @@ constructor(
     private val userRepository: UserRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _dataState: MutableLiveData<DataState<List<UserModel>>> = MutableLiveData()
+    private val _dataState: MutableLiveData<DataState<UserModel>> = MutableLiveData()
 
-    val dataState: LiveData<DataState<List<UserModel>>>
+    val dataState: LiveData<DataState<UserModel>>
         get() = _dataState
 
-    fun setStateEvent(mainStateEvent: MainStateEvent){
+    fun setStateEvent(mainStateEvent: MainStateEvent,email:String,password:String){
         viewModelScope.launch {
-            getdatafromapi()
             when(mainStateEvent){
                 is MainStateEvent.GetBlogsEvent -> {
-                    userRepository.getBlogs()
+                    userRepository.getBlogs(email,password)
                         .onEach {dataState ->
                             _dataState.value = dataState
                             Log.e("usersertest","$dataState")
@@ -55,7 +54,12 @@ constructor(
             }
         }
     }
-    suspend fun getdatafromapi() {
+    fun postuser(map:HashMap<String,String>){
+        viewModelScope.launch {
+        userRepository.postuser(map)
+        }
+    }
+    /*suspend fun getdatafromapi() {
         val client = OkHttpClient().newBuilder().connectTimeout(250, TimeUnit.SECONDS)
             .writeTimeout(250, TimeUnit.SECONDS)
             .readTimeout(250, TimeUnit.SECONDS)
@@ -76,7 +80,7 @@ constructor(
 
             }
         })
-    }
+    }*/
 
 }
 
