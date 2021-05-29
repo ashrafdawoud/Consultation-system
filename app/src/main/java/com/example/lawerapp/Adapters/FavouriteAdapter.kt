@@ -24,7 +24,7 @@ class FavouriteAdapter () :RecyclerView.Adapter<FavouriteAdapter.ViewHolder>(){
         return 10
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener {  context.startActivity(Intent(context,LawyerProfileActivity::class.java))}
+        //holder.itemView.setOnClickListener {  context.startActivity(Intent(context,LawyerProfileActivity::class.java))}
     }
 
 }

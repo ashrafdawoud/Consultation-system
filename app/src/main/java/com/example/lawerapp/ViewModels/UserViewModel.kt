@@ -6,6 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.lawerapp.Model.UserModel
 import com.example.lawerapp.Repository.UserRepository
+import com.example.lawerapp.Retrofit.Entities.SucssesEntity
 import com.example.lawerapp.Retrofit.Entities.UserRetrofitEntity
 import com.example.lawerapp.Retrofit.RetrofitInterface
 import com.example.lawerapp.Utils.DataState
@@ -32,31 +33,39 @@ constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val _dataState: MutableLiveData<DataState<UserModel>> = MutableLiveData()
+    private val _dataStateSignup: MutableLiveData<DataState<SucssesEntity>> = MutableLiveData()
 
     val dataState: LiveData<DataState<UserModel>>
         get() = _dataState
 
-    fun setStateEvent(mainStateEvent: MainStateEvent,email:String,password:String){
+    val dataStatesignup: LiveData<DataState<SucssesEntity>>
+        get() = _dataStateSignup
+
+    fun setStateEvent(mainStateEvent: MainStateEvent, email: String, password: String) {
         viewModelScope.launch {
-            when(mainStateEvent){
+            when (mainStateEvent) {
                 is MainStateEvent.GetBlogsEvent -> {
-                    userRepository.getBlogs(email,password)
-                        .onEach {dataState ->
+                    userRepository.getBlogs(email, password)
+                        .onEach { dataState ->
                             _dataState.value = dataState
-                            Log.e("usersertest","$dataState")
+                            Log.e("usersertest", "$dataState")
                         }
                         .launchIn(viewModelScope)
                 }
 
                 MainStateEvent.None -> {
-                    Log.e("usersertest","none")
+                    Log.e("usersertest", "none")
                 }
             }
         }
     }
-    fun postuser(map:HashMap<String,String>){
+
+    fun postuser(map: HashMap<String, String>) {
         viewModelScope.launch {
-        userRepository.postuser(map)
+            userRepository.postuser(map).onEach { dataState ->
+            _dataStateSignup.value=dataState
+                Log.e("usersertestsignup", "$dataState")
+            }.launchIn(viewModelScope)
         }
     }
     /*suspend fun getdatafromapi() {

@@ -45,6 +45,7 @@
                 android:textAlignment="center"
                 android:layout_marginTop="8dp"/>
             <TextView
+                android:id="@+id/exp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="10 years experiance"
@@ -58,7 +59,7 @@
                 android:layout_marginBottom="5dp"
                 />
             <TextView
-                android:id="@+id/discription"
+                android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="20$/hr"
@@ -73,6 +74,7 @@
                 />
         </LinearLayout>
         <ImageView
+            android:visibility="gone"
             android:id="@+id/favourite"
             android:layout_width="30dp"
             android:layout_height="30dp"

@@ -1,5 +1,6 @@
 package com.example.lawerapp.View
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -33,8 +34,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var bool: Boolean = true
+
     @Inject
-    lateinit var activityDesign:ActivityDesign
+    lateinit var activityDesign: ActivityDesign
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +61,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun lanch_next_screen() {
-        val intent=Intent(this, SignInActivity::class.java)
+        val intent = Intent(this, SignInActivity::class.java)
+        val intent2 = Intent(this, HomeActivity::class.java)
         GlobalScope.launch {
             runBlocking {
                 delay(3000)
-                startActivity(intent)
+                val sharedpreferences =
+                    getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE)
+                if (sharedpreferences.getString("objectid", null) != null)
+                    startActivity(intent2)
+                else
+                    startActivity(intent)
                 finish()
             }
 

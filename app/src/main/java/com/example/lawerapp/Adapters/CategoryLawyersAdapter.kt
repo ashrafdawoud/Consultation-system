@@ -14,29 +14,39 @@ import com.example.lawerapp.R
 import com.example.lawerapp.View.LawyerProfileActivity
 import com.squareup.picasso.Picasso
 
+class CategoryLawyersAdapter constructor(val context: Context,val data:List<LayersModel>) :
+    RecyclerView.Adapter<CategoryLawyersAdapter.ViewHolder>() {
 
-class CriminalAdapter constructor(val context: Context,private val data:List<LayersModel>) : RecyclerView.Adapter<CriminalAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.criminal_item, parent, false));
+
+    override fun getItemCount(): Int {
+        return  data.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CategoryLawyersAdapter.ViewHolder {
+        return CategoryLawyersAdapter.ViewHolder(
+            LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.category_lawyers_item, parent, false)
+        );
+
+    }
+
+    override fun onBindViewHolder(holder: CategoryLawyersAdapter.ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            val yourIntent :Intent = Intent(context, LawyerProfileActivity::class.java)
+            val yourIntent : Intent = Intent(context, LawyerProfileActivity::class.java)
             val b = Bundle()
             b.putSerializable("user", data.get(position))
             yourIntent.putExtras(b) //pass bundle to your intent
             context.startActivity(yourIntent)
-         }
+        }
         Picasso.get().load(data.get(position).image).into(holder.image)
         holder.name.setText(data.get(position).name)
         holder.price.setText("${data.get(position).price} $/hr")
         holder.exp.setText("${data.get(position).exp} years Experience")
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image : ImageView =itemView.findViewById(R.id.profile_image)
         val name : TextView =itemView.findViewById(R.id.name)

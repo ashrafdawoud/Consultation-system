@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.lawerapp.R
+import com.example.lawerapp.Retrofit.Entities.SucssesEntity
 import com.example.lawerapp.Utils.ActivityDesign
+import com.example.lawerapp.Utils.DataState
 import com.example.lawerapp.ViewModels.UserViewModel
 import com.example.lawerapp.databinding.ActivitySignUpBinding
 import com.example.lawerapp.databinding.ActivitySigninBinding
@@ -52,6 +56,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun signup2(view: View) {
+
         if (!binding.name.text.toString().equals("")
             && !binding.email.text.toString().equals("")
             && !binding.password.text.toString().equals("")
@@ -71,12 +76,30 @@ class SignUpActivity : AppCompatActivity() {
                 binding.password.setError("password and repassword should be equal")
                 binding.repassword.setError("password and repassword should be equal")
             }
-        }else{
+        } else {
             binding.password.setError("this field can't be empty")
             binding.repassword.setError("this field can't be empty")
             binding.name.setError("this field can't be empty")
             binding.phone.setError("this field can't be empty")
             binding.email.setError("this field can't be empty")
         }
+        getObservalData()
+    }
+
+    fun getObservalData() {
+        viewModel.dataStatesignup.observe(this, Observer { dataState ->
+            when (dataState) {
+                is DataState.Success<SucssesEntity> -> {
+                    Toast.makeText(this,"Go to Signin",Toast.LENGTH_LONG).show()
+                    finish()
+                }
+                is DataState.Error -> {
+                    Toast.makeText(this,dataState.exception.message,Toast.LENGTH_LONG).show()
+                }
+                is DataState.Loading ->{
+                    Toast.makeText(this,"Loading",Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }

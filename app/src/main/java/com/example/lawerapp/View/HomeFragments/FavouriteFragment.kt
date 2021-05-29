@@ -24,6 +24,10 @@ class FavouriteFragment : Fragment() {
         return view
     }
     fun contentview(view:View){
+        recyclerview(view)
+
+    }
+    fun recyclerview(view:View){
         favRecy=view.findViewById(R.id.favRecy)
         favouriteAdapter= FavouriteAdapter()
         var layoutManager : LinearLayoutManager= LinearLayoutManager(context?.applicationContext,LinearLayoutManager.VERTICAL,true)

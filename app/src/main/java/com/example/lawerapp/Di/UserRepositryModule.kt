@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-object RepositryModule {
+object UserRepositryModule {
 
     @Singleton
     @Provides

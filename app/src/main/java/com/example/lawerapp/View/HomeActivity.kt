@@ -16,7 +16,9 @@ import com.example.lawerapp.View.HomeFragments.FavouriteFragment
 import com.example.lawerapp.View.HomeFragments.HomeFragment
 import com.example.lawerapp.View.HomeFragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     lateinit var viewPager: ViewPager
     lateinit var adapter: ViewPagerAdapter

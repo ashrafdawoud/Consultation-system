@@ -1,12 +1,13 @@
 package com.example.lawerapp.View
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.example.lawerapp.Model.UserModel
@@ -18,6 +19,7 @@ import com.example.lawerapp.ViewModels.UserViewModel
 import com.example.lawerapp.databinding.ActivitySigninBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
@@ -67,17 +69,35 @@ class SignInActivity : AppCompatActivity() {
             when (dataState) {
                 is DataState.Success<UserModel> -> {
                     Log.e("Mainactiivty", "sucsses " + dataState.data)
-                    if (binding.email.text.toString().equals(dataState.data.email)&&binding.password.text.toString().equals(dataState.data.password)){
+                    if (binding.email.text.toString()
+                            .equals(dataState.data.email) && binding.password.text.toString()
+                            .equals(dataState.data.password)
+                    ) {
+                        val sharedpreferences =
+                            getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE)
+                        val editor = sharedpreferences.edit()
+                        editor.putString("objectid", dataState.data.objectId)
+                        editor.putString("email", dataState.data.email)
+                        editor.putString("password", dataState.data.password)
+                        editor.putString("phone", dataState.data.phone)
+                        editor.putString("name", dataState.data.first_name)
+                        editor.commit()
                         startActivity(Intent(this, HomeActivity::class.java))
-                    }else{
-                        Toast.makeText(this,"try again with correct email or password",Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "try again with correct email or password",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
                 is DataState.Error -> {
-                    Log.e("Mainactiivty", "Error "+dataState.exception.message)
-                    Toast.makeText(this,"Error "+dataState.exception.message,Toast.LENGTH_LONG).show()
+                    Log.e("Mainactiivty", "Error " + dataState.exception.message)
+                    Toast.makeText(this, "Error " + dataState.exception.message, Toast.LENGTH_LONG)
+                        .show()
                 }
                 is DataState.Loading -> {
+                    Toast.makeText(this, "Loading", Toast.LENGTH_LONG).show()
                 }
             }
         })
