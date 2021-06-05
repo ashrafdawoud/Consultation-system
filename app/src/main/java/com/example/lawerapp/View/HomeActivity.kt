@@ -11,10 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.example.lawerapp.Adapters.ViewPagerAdapter
 import com.example.lawerapp.R
-import com.example.lawerapp.View.HomeFragments.CategoryFragment
-import com.example.lawerapp.View.HomeFragments.FavouriteFragment
-import com.example.lawerapp.View.HomeFragments.HomeFragment
-import com.example.lawerapp.View.HomeFragments.ProfileFragment
+import com.example.lawerapp.View.HomeFragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
     var categoryFragment: CategoryFragment = CategoryFragment()
     var profileFragment: ProfileFragment = ProfileFragment()
     var favouriteFragment:FavouriteFragment=FavouriteFragment()
+    var serachfragment:SearchFragment= SearchFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -41,9 +39,11 @@ class HomeActivity : AppCompatActivity() {
         adapter.addFragment(homeFragment, "Home")
         adapter.addFragment(categoryFragment, "Category")
         adapter.addFragment(favouriteFragment, "Favourite")
+        adapter.addFragment(serachfragment, "Search")
         adapter.addFragment(profileFragment, "Profile")
+
         viewPager.setAdapter(adapter)
-        viewPager.setOffscreenPageLimit(4)
+        viewPager.setOffscreenPageLimit(5)
         viewPager.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
@@ -116,8 +116,16 @@ class HomeActivity : AppCompatActivity() {
                         window.statusBarColor = resources.getColor(R.color.major_back)
                     }
                 }
-                R.id.navigation_profile -> {
+                R.id.navigation_search -> {
                     viewPager.setCurrentItem(3)
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        //window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);//  set status text dark
+                        window.statusBarColor = resources.getColor(R.color.major_back)
+                    }
+                }
+                R.id.navigation_profile -> {
+                    viewPager.setCurrentItem(4)
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         //window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);//  set status text dark

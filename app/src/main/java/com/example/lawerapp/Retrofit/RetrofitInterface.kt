@@ -46,4 +46,5 @@ interface RetrofitInterface {
     )
     @GET("Lawyers")
     suspend fun getCategoryLawers(@Query("where") data:String) :PopularLawersRetrofitEntity
+
 }
