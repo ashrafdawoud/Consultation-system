@@ -1,10 +1,8 @@
 package com.example.lawerapp.Di
 
-import com.example.lawerapp.Repository.CategoryRepository
-import com.example.lawerapp.Repository.FavouriteRepository
-import com.example.lawerapp.Repository.PopularLawersRepository
-import com.example.lawerapp.Repository.UserRepository
+import com.example.lawerapp.Repository.*
 import com.example.lawerapp.Retrofit.Mappers.CategoryMapper
+import com.example.lawerapp.Retrofit.Mappers.GovernmentMapper
 import com.example.lawerapp.Retrofit.Mappers.LawyerMaper
 import com.example.lawerapp.Retrofit.Mappers.UserMaper
 import com.example.lawerapp.Retrofit.RetrofitInterface
@@ -53,5 +51,21 @@ object RepositoriesModule  {
         favouriteMaper: FavouriteMaper
     ):FavouriteRepository{
         return FavouriteRepository(favouritDao,favouriteMaper)
+    }
+    @Singleton
+    @Provides
+    fun provideGovernmentRepository(
+        governmentMapper: GovernmentMapper,
+        retrofitInterface: RetrofitInterface
+    ):GovernmentRepository{
+        return GovernmentRepository(governmentMapper,retrofitInterface)
+    }
+    @Singleton
+    @Provides
+    fun provideSearchRepository(
+        retrofitInterface: RetrofitInterface,
+        lawyerMaper: LawyerMaper
+    ):SearchRepository{
+        return SearchRepository(retrofitInterface,lawyerMaper)
     }
 }

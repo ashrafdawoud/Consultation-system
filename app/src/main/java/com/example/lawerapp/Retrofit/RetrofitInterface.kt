@@ -46,5 +46,17 @@ interface RetrofitInterface {
     )
     @GET("Lawyers")
     suspend fun getCategoryLawers(@Query("where") data:String) :PopularLawersRetrofitEntity
+    @Headers(
+        "X-Parse-Application-Id:m4fV65YIwkezflLzC5dVe8t1XMlWyV1FUsZ2IVkw",
+        "X-Parse-REST-API-Key:0SISQ04mVSUHOEGL6q5VwkE9UuS3OFySUkZ0BL8L"
+    )
+    @GET("Government")
+    suspend fun getGovernment() :GovernmentRetrofitEntity
+    @Headers(
+        "X-Parse-Application-Id:m4fV65YIwkezflLzC5dVe8t1XMlWyV1FUsZ2IVkw",
+        "X-Parse-REST-API-Key:0SISQ04mVSUHOEGL6q5VwkE9UuS3OFySUkZ0BL8L"
+    )
+    @GET("Lawyers")
+    suspend fun searchbyname(@Query("where") data:String) :PopularLawersRetrofitEntity
 
 }
