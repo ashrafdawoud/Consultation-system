@@ -7,4 +7,5 @@ data class CategoryModel(
     var objectId : String,
     var name : String,
     var image : String,
+    var informations : String,
 )

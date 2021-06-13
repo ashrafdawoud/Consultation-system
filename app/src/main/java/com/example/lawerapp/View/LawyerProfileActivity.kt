@@ -82,7 +82,11 @@ class LawyerProfileActivity : AppCompatActivity() {
             }
 
         }
-
+        binding.enroll.setOnClickListener {
+            val intent:Intent= Intent(this,ReversationActivity::class.java)
+            intent.putExtra("object_id",user.objectId)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

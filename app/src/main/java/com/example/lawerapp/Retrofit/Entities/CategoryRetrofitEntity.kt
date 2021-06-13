@@ -18,5 +18,8 @@ class CategoryEntity(
     @SerializedName("image")
     @Expose
     var image: String,
+    @SerializedName("informations")
+    @Expose
+    var informations: String,
 
 )

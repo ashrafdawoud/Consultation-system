@@ -6,11 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,6 +17,7 @@ import com.example.lawerapp.Model.CategoryModel
 import com.example.lawerapp.Model.GovernmentModel
 import com.example.lawerapp.R
 import com.example.lawerapp.Utils.DataState
+import com.example.lawerapp.View.CategoryDetailsActivity
 import com.example.lawerapp.View.SearchResultActivity
 import com.example.lawerapp.ViewModels.CategoryViewModel
 import com.example.lawerapp.ViewModels.SearchViewModel
@@ -57,6 +55,11 @@ class SearchFragment : Fragment() {
         call_viewmodels()
         search=view.findViewById(R.id.search)
         layername=view.findViewById(R.id.layername)
+        val know_cat:TextView=view.findViewById(R.id.know_category)
+        know_cat.setOnClickListener{
+            val intent=Intent(activity,CategoryDetailsActivity::class.java)
+            activity?.startActivity(intent)
+        }
         search.setOnClickListener {
             Log.e("namename12",layername.text.toString())
             val intent=Intent(activity,SearchResultActivity::class.java)

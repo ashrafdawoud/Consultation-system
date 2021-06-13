@@ -11,7 +11,9 @@ class CategoryMapper @Inject constructor()  : EntityMaper<CategoryEntity,Categor
         return CategoryModel(
             objectId = entity.objectId,
             name = entity.Name,
-            image = entity.image
+            image = entity.image,
+            informations = entity.informations
+
         )
     }
 
@@ -19,7 +21,8 @@ class CategoryMapper @Inject constructor()  : EntityMaper<CategoryEntity,Categor
         return CategoryEntity(
             objectId = domainModel.objectId,
             Name = domainModel.name,
-            image = domainModel.image
+            image = domainModel.image,
+            informations = domainModel.informations
         )
     }
     fun mapfromEntityList(entity: List<CategoryEntity>):List<CategoryModel>{

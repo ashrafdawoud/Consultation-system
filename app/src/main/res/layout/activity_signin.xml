@@ -62,12 +62,12 @@
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/major"
-                android:textSize="17dp"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="17dp" />
 
             <EditText
                 android:id="@+id/password"
@@ -80,11 +80,11 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/major"
                 android:hint="Password"
-                android:textSize="17dp"
                 android:inputType="textPassword"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="17dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -93,8 +93,8 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="35dp"
                 android:backgroundTint="@color/major2"
-                app:cardCornerRadius="12dp"
-                android:onClick="signin">
+                android:onClick="signin"
+                app:cardCornerRadius="12dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -118,17 +118,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:text="you don't have any account ?" />
+                    android:text="you don't have any account ?"
+                    android:textSize="16dp" />
 
                 <TextView
-                    android:onClick="signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
+                    android:fontFamily="@font/tajwal_bold"
+                    android:onClick="signup"
                     android:text=" SignUp"
                     android:textColor="@color/major"
-                    android:fontFamily="@font/tajwal_bold" />
+                    android:textSize="18dp" />
             </LinearLayout>
         </LinearLayout>
 

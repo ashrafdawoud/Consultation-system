@@ -13,8 +13,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/tajwal_bold</item>
     </style>
+
+    <style name="Theme.LawerApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.LawerApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.LawerApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
 </resources>

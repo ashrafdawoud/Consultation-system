@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LawerApp">
-        <activity android:name=".View.SearchResultActivity"></activity>
+        <activity
+            android:name=".View.ReversationActivity"></activity>
+        <activity android:name=".View.CategoryDetailsActivity" />
+        <activity android:name=".View.SearchResultActivity" />
         <activity android:name=".View.CategoryLawyersActivity" />
         <activity android:name=".View.LawyerProfileActivity" />
         <activity android:name=".View.HomeActivity" />

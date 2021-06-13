@@ -138,6 +138,17 @@
                 android:src="@drawable/ic_baseline_arrow_drop_down_24" />
         </RelativeLayout>
         <TextView
+            android:id="@+id/know_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/tajwal_regular"
+            android:text="اعرف التخصص؟"
+            android:textAlignment="textStart"
+            android:textSize="18dp"
+            android:textColor="#002070"
+            />
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
