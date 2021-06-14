@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
+import com.example.lawerapp.Adapters.TimesAdapter
 import com.example.lawerapp.R
 import com.example.lawerapp.Utils.ActivityDesign
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,8 +21,10 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class ReversationActivity : AppCompatActivity() {
+class ReversationActivity : AppCompatActivity(),TimesAdapter.OnClichListeners {
+    lateinit var selected_time:String
     lateinit var times_recy:RecyclerView
+    lateinit var timeadapter:TimesAdapter
     @Inject
      lateinit var activityDesign:ActivityDesign
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,11 +74,16 @@ class ReversationActivity : AppCompatActivity() {
     }
     fun setup_recyclerview(){
         times_recy=findViewById(R.id.timesRecy)
-        var layoutManager: LinearLayoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.HORIZONTAL, false
-        )
+        var layoutManager: LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         times_recy.layoutManager = layoutManager
         times_recy.hasFixedSize()
+        timeadapter=TimesAdapter(null,this)
+        times_recy.adapter=timeadapter
     }
+
+    override fun onclick(time: String) {
+        super.onclick(time)
+        selected_time=time
+    }
+
 }
