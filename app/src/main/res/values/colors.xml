@@ -11,5 +11,7 @@
     <color name="major2">#FFAFAF</color>
     <color name="major_back">#F8FAFF</color>
     <color name="red">#C60808</color>
+    <color name="gray_light">#BEBFBF</color>
+    <color name="gray_dark">#494848</color>
 
 </resources>

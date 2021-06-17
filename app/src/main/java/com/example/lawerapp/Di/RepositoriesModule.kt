@@ -1,10 +1,7 @@
 package com.example.lawerapp.Di
 
 import com.example.lawerapp.Repository.*
-import com.example.lawerapp.Retrofit.Mappers.CategoryMapper
-import com.example.lawerapp.Retrofit.Mappers.GovernmentMapper
-import com.example.lawerapp.Retrofit.Mappers.LawyerMaper
-import com.example.lawerapp.Retrofit.Mappers.UserMaper
+import com.example.lawerapp.Retrofit.Mappers.*
 import com.example.lawerapp.Retrofit.RetrofitInterface
 import com.example.lawerapp.Room.FavouritDao
 import com.example.lawerapp.Room.Maper.FavouriteMaper
@@ -67,5 +64,13 @@ object RepositoriesModule  {
         lawyerMaper: LawyerMaper
     ):SearchRepository{
         return SearchRepository(retrofitInterface,lawyerMaper)
+    }
+    @Singleton
+    @Provides
+    fun provideCalenderRepository(
+        retrofitInterface: RetrofitInterface,
+        calenderMapper: CalenderMapper
+    ):CalenderRepository{
+        return CalenderRepository(retrofitInterface,calenderMapper)
     }
 }

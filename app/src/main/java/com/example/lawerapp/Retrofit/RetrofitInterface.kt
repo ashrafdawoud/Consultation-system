@@ -58,5 +58,19 @@ interface RetrofitInterface {
     )
     @GET("Lawyers")
     suspend fun searchbyname(@Query("where") data:String) :PopularLawersRetrofitEntity
+    @Headers(
+        "X-Parse-Application-Id:m4fV65YIwkezflLzC5dVe8t1XMlWyV1FUsZ2IVkw",
+        "X-Parse-REST-API-Key:0SISQ04mVSUHOEGL6q5VwkE9UuS3OFySUkZ0BL8L"
+    )
+    @GET("Calender")
+    suspend fun getreservdata(@Query("where") data :String):CalenderRetrofitEntivity
+    @Headers(
+        "X-Parse-Application-Id:m4fV65YIwkezflLzC5dVe8t1XMlWyV1FUsZ2IVkw",
+        "X-Parse-REST-API-Key:0SISQ04mVSUHOEGL6q5VwkE9UuS3OFySUkZ0BL8L",
+        "Accept: application/json"
+    )
+    @FormUrlEncoded
+    @POST("Calender")
+    suspend fun appointmentfunction(@FieldMap  options:Map<String, String>) : SucssesEntity
 
 }
