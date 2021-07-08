@@ -41,13 +41,11 @@ class LawyerProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lawyer_profile)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        val i = intent
-        val bundle = i.extras
-        user = (bundle!!.getSerializable("user") as LayersModel?)!!
+
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_lawyer_profile)
         contentview()
     }
-
     fun contentview() {
         activityDesign.excuteDesign(this)
         val toolbar: Toolbar = findViewById<View>(R.id.toolbar) as Toolbar
@@ -65,7 +63,6 @@ class LawyerProfileActivity : AppCompatActivity() {
         Picasso.get().load(user.image).into(binding.profile)
         viewModel.getoneuser(user)
         getobserverdata()
-
         binding.fab.setOnClickListener {
             if (!isfav) {
                 viewModel.insertuser(user)
